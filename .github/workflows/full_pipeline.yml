@@ -1,0 +1,65 @@
+name: Deploy theme
+
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Checkout source and build
+      run: echo Hello, world!
+  deploy_UAT:
+    needs: build
+    name: Deploy_UAT
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Sync my theme
+        env:
+          source: './storefront/'  
+          destination: 'bcivel@35.195.196.219:/var/www/html/wp-content/themes/storefront/' 
+        run: |
+          echo "${{secrets.DEPLOY_KEY_UAT}}" > deploy_key
+          chmod 600 ./deploy_key
+          sudo rsync -chav --delete \
+            -e 'ssh -i ./deploy_key -o StrictHostKeyChecking=no' \
+            --exclude /sass \
+            ${{env.source}} ${{env.destination}}
+  run_Tests_UAT:
+    needs: deploy_UAT
+    name: Run_Tests_UAT
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: cerberus-action
+      uses: cerberustesting/cerberus-github-action@v3
+      with:
+        host: https://jftl.cerberus-testing.com
+        campaign: SanityCheck
+        apikey: ${{ secrets.APIKEY }}
+        author: ${{ github.event.pusher.name }}
+  deploy_Prod:
+    needs: run_Tests_UAT
+    name: Manual_Deploy_Prod
+    runs-on: ubuntu-latest
+    environment:
+      name: triggerProdDeploy
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Sync my theme
+        env:
+          source: './storefront/'
+          destination: 'bcivel@34.79.152.162:/var/www/html/wp-content/themes/storefront/'  
+        run: |
+          echo "${{secrets.DEPLOY_KEY}}" > deploy_key
+          chmod 600 ./deploy_key
+          sudo rsync -chav --delete \
+            -e 'ssh -i ./deploy_key -o StrictHostKeyChecking=no' \
+            --exclude /sass \
+            ${{env.source}} ${{env.destination}}
