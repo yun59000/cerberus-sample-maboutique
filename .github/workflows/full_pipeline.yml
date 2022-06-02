@@ -42,6 +42,7 @@ jobs:
         campaign: SanityCheck
         apikey: ${{ secrets.APIKEY }}
         author: ${{ github.event.pusher.name }}
+        environment: UAT
   deploy_Prod:
     needs: run_Tests_UAT
     name: Manual_Deploy_Prod
