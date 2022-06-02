@@ -2,6 +2,9 @@ name: Deploy theme
 
 on: [push]
 
+env:
+  TAG: SanityCheck.${{ github.event.pusher.name }}.$(date +'%Y-%m-%dT%H:%M:%S')
+
 jobs:
   build:
     name: Build
@@ -43,9 +46,10 @@ jobs:
         apikey: ${{ secrets.APIKEY }}
         author: ${{ github.event.pusher.name }}
         environment: UAT
-  deploy_Prod:
+        tag: ${TAG}
+  deploy_PROD:
     needs: run_Tests_UAT
-    name: Manual_Deploy_Prod
+    name: Manual_Deploy_PROD
     runs-on: ubuntu-latest
     environment:
       name: triggerProdDeploy
@@ -64,3 +68,18 @@ jobs:
             -e 'ssh -i ./deploy_key -o StrictHostKeyChecking=no' \
             --exclude /sass \
             ${{env.source}} ${{env.destination}}
+  run_Tests_PROD:
+    needs: deploy_PROD
+    name: Run_Tests_PROD
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: cerberus-action
+      uses: cerberustesting/cerberus-github-action@v5
+      with:
+        host: https://jftl.cerberus-testing.com
+        campaign: SanityCheck
+        apikey: ${{ secrets.APIKEY }}
+        author: ${{ github.event.pusher.name }}
+        environment: PROD
+        tag: ${TAG}
