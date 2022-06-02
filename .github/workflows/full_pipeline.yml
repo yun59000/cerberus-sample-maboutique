@@ -36,7 +36,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: cerberus-action
-      uses: cerberustesting/cerberus-github-action@v3
+      uses: cerberustesting/cerberus-github-action@v4
       with:
         host: https://jftl.cerberus-testing.com
         campaign: SanityCheck
