@@ -1,4 +1,4 @@
-name: Pipeline Full
+name: Deploy with continuous testing
 
 on:
   workflow_dispatch:
