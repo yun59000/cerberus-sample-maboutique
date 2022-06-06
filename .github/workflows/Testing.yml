@@ -1,4 +1,4 @@
-name: Deploy with continuous testing
+name: Automated Testing only
 
 on:
   push
