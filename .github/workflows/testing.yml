@@ -7,7 +7,6 @@ env:
 
 jobs:
   run_Tests_UAT:
-    needs: deploy_UAT
     name: Run_Tests_UAT
     runs-on: ubuntu-latest
     steps:
