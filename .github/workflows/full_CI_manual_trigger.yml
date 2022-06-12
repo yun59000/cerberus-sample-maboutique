@@ -20,6 +20,7 @@ jobs:
     - name: Checkout source and build
       run: echo Hello, world!
   sonarcloud:
+    needs: build
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
@@ -32,7 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   deploy_UAT:
-    needs: build
+    needs: sonarcloud
     name: Deploy_UAT
     runs-on: ubuntu-latest
 
