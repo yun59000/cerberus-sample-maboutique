@@ -13,3 +13,46 @@ jobs:
     - uses: actions/checkout@v2
     - name: Checkout source and build
       run: echo Hello, world!
+  sonarcloud:
+    needs: build
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  runTestsUAT:
+    needs: sonarcloud
+    name: Run_Tests_UAT
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: cerberus-action
+      uses: cerberustesting/cerberus-github-action@v6
+      with:
+        host: https://jftl.cerberus-testing.fr
+        campaign: SanityCheck
+        apikey: ${{ secrets.APIKEY }}
+        author: ${{ github.event.pusher.name }}
+        environment: UAT
+        tag: ${TAG}
+  run_Tests_PROD:
+    needs: runTestsUAT
+    name: Run_Tests_PROD
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: cerberus-action
+      uses: cerberustesting/cerberus-github-action@v6
+      with:
+        host: https://jftl.cerberus-testing.fr
+        campaign: SanityCheck
+        apikey: ${{ secrets.APIKEY }}
+        author: ${{ github.event.pusher.name }}
+        environment: UAT
+        tag: ${TAG}
