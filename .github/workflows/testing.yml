@@ -14,7 +14,7 @@ jobs:
     - name: cerberus-action
       uses: cerberustesting/cerberus-github-action@v6
       with:
-        host: https://jftl.cerberus-testing.com
+        host: https://jftl.cerberus-testing.fr
         campaign: SanityCheck
         apikey: ${{ secrets.APIKEY }}
         author: ${{ github.event.pusher.name }}
