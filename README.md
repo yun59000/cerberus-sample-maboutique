@@ -1,2 +1,1 @@
 # cerberus-sample-maboutique
-
