@@ -1,4 +1,4 @@
-name: Deploy with continuous testing
+name: Full CI with manual trigger
 
 on:
   workflow_dispatch:
