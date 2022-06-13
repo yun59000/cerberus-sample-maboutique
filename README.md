@@ -11,6 +11,20 @@ Plan :
 - [ETAPE 3 : Ajout des tests automatiques dans la CI](https://github.com/cerberustesting/cerberus-sample-maboutique#etape-3--ajout-des-tests-automatiques-dans-la-ci).
 
 
+\
+&nbsp;
+
+Utiliser chrome ou firefox de préférence
+
+Url : https://jftl.cerberus-testing.fr
+
+
+Read/Write pour ceux qui veulent pratiquer en live :)
+User : jftl
+Pass : jftl
+
+\
+&nbsp;
 
 ## ETAPE 1 : FORK le projet cerberustesting/cerberus-sample-maboutique
 1. Depuis le projet github https://github.com/cerberustesting/cerberus-sample-maboutique, fork l’application sur votre repository perso
