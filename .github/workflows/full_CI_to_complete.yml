@@ -1,15 +1,13 @@
-name: Full CI to complete
-
-on: [push]
-
-env:
-  TAG: SanityCheck.${{ github.event.pusher.name }}.${{ github.event.repository.pushed_at}}
-
-jobs:
-  build:
-    name: Build
+  sonarcloud:
+    needs: build
+    name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Checkout source and build
-      run: echo Hello, world!
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
