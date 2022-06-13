@@ -16,12 +16,12 @@ Plan :
 
 Utiliser chrome ou firefox de préférence
 
-Url : https://jftl.cerberus-testing.fr
+- Url : https://jftl.cerberus-testing.fr
 
 
 Read/Write pour ceux qui veulent pratiquer en live :)
-User : jftl
-Pass : jftl
+- User : jftl
+- Pass : jftl
 
 \
 &nbsp;
