@@ -219,8 +219,8 @@ sonar.organization
 \
 &nbsp;
 
-Name : SONAR_TOKEN
-Value : Le token sauvegardé
+- Name : SONAR_TOKEN
+- Value : Le token sauvegardé
 
 \
 &nbsp;
@@ -438,7 +438,32 @@ Commit et vérifier la correction des erreurs
 \
 &nbsp;
 
-1. Aller sur l'onglet Action
+1. Dans Github aller sur la page Settings > Secrets > Actions
+
+\
+&nbsp;
+<img width="1228" alt="Capture d’écran 2022-06-13 à 11 26 41" src="https://user-images.githubusercontent.com/5376184/173323238-0919b466-c112-460a-b978-71b25c323b3c.png">
+
+\
+&nbsp;
+
+2. Ajouter un nouveau "Repository Secret" 
+
+\
+&nbsp;
+
+- Name : APIKEY
+- Value : l'APIKEY réupéré dans Cerberus > Administration > Parameters
+
+\
+&nbsp;
+
+<img width="1063" alt="Capture d’écran 2022-06-13 à 11 22 26" src="https://user-images.githubusercontent.com/5376184/173323827-228b13d5-db82-4109-a143-4cca19af6d2a.png">
+
+\
+&nbsp;
+
+3. Aller sur l'onglet Action
 
 \
 &nbsp;
@@ -448,7 +473,7 @@ Commit et vérifier la correction des erreurs
 \
 &nbsp;
 
-2. Cliquer sur Full_CI_to_complete.yml
+4. Cliquer sur Full_CI_to_complete.yml
 
 \
 &nbsp;
@@ -457,8 +482,7 @@ Commit et vérifier la correction des erreurs
 
 \&nbsp;
 
-3. Cliquer sur edit
-4. Ajouter la configuration ci dessous
+5. Cliquer sur edit et ajouter la configuration ci dessous
 
 \
 &nbsp;
