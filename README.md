@@ -453,7 +453,7 @@ Commit et vérifier la correction des erreurs
 &nbsp;
 
 - Name : APIKEY
-- Value : l'APIKEY réupéré dans Cerberus > Administration > Parameters
+- Value : l'APIKEY réupéré dans [Cerberus > Administration > Parameters](https://jftl.cerberus-testing.fr/ParameterList.jsp). 
 
 \
 &nbsp;
